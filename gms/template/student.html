@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Logged In
+	</title>
+	
+</head>
+<body>
+	{% load static %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'gms/style.css' %}"/>
+	<link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Cinzel Decorative' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="{% static 'gms/style.css' %}"/>
+
+	<a href="/logout/">
+   		<button class="btn btn-danger"  style="float: right;width: 100px;margin-right:10px;background-color:#640d14;font-family:Cinzel;" >  Log Out  </button>
+	</a>
+	<h4 style="text-align: left;font-family:'Cinzel';font-weight:bolder;margin-left:20px;margin-top:20px;font-size:25px;color:#13325B">Welcome {{student.first_name}}</h4>
+	<hr style="background-color:#d6ccc2;height: 2px;">
+	<h3 style="text-align: center;color:#13325B;font-family:'Cinzel';font-weight:bold;font-size:32px"> Semester IV - 2022 </h3>
+	<!--<hr style="background-color:#d6ccc2;height:2px;">-->
+	<div style="margin-top: 50px; width:50%; margin:0 auto;">
+	{%if pr is True%}
+		<table style="text-align: center;color:#13325B;font-family: Noto;font-size:15px">
+			<tr style="background-color:#9cc5a1; color: white">
+				<th><h4 style="font-family:'Cinzel Decorative';font-size:16px;color:#13325B;font-weight:bold;"><strong>Courses</strong></h4></th>
+				<th><h4 style="font-family:'Cinzel Decorative';font-size:16px;color:#13325B;font-weight:bold;"><strong>Credits ({{credits}})</strong></h4></th>
+				<th><h4 style="font-family:'Cinzel Decorative';font-size:16px;color:#13325B;font-weight:bold;"><strong>Grade</strong></h4></th>
+				<th><h4 style="font-family:'Cinzel Decorative';font-size:16px;color:#13325B;font-weight:bold;"><strong>Result</strong></h4></th>
+			</tr>
+
+			
+			{%for course in courses %}
+				{%for grade in grade_arr %}
+					{%if forloop.counter == forloop.parentloop.counter %}
+					   	<tr>
+					   		<td><label>{{course.course_name}}</label></td>
+					   		<td><label>{{course.credit}}</label></td>
+					   		<td><label>
+					   			{%if grade == 10%}
+					   			A
+					   			{%elif grade == 8%}
+					   			B
+					   			{%elif grade == 6%}
+					   			C
+					   			{%elif grade == 4%}
+					   			D
+					   			{%elif grade == 0%}
+					   			F
+					   			{%endif%}
+					   			</label></td>
+					   		<td><label>
+					   			{% if grade > 0 %}
+					   				Pass
+					   			{% else %}
+					   				<font color="red">Fail</font>
+					   			{%endif%}
+					   		</label></td>
+					    </tr>
+					{%endif%}
+			    {%endfor%}
+		    {%endfor%}
+		    <tr>
+		   		<td><h4><strong>SGPA</strong></h4><h5>(Semester Grade Point Average)</h5></td>
+		   		<td><h4></h4></td>
+		   		<td><h4><strong>{{sgpa}}/10</strong></h4></td>
+		   		<td></td>
+		    </tr>
+		</table>
+
+	{%endif%}
+	{%if pr is False%}
+		<h4 style="text-align: center;">Result is not published yet</h4>
+	{%endif%}
+	</div>
+	<br>
+	
+	
+</body>
+</html>
